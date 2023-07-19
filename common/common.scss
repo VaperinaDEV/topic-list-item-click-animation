@@ -1,0 +1,80 @@
+.topic-list-item {
+  @include user-select(none);
+
+  // Discourse No Touch
+  
+  .discourse-no-touch & {
+    &:hover,
+    &:active {
+      cursor: pointer;
+      transition: background 200ms;
+      background: #{$background_color};
+    }
+  }
+
+  // Discourse Touch
+  
+  .discourse-touch & {
+    > * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+    img.avatar {
+      &:active {
+        filter: brightness(0.7);
+      }
+    }
+  }
+  
+  .discourse-touch 
+  .loading-indicator-container.loading
+  ~ #main-outlet-wrapper &,
+  .discourse-touch 
+  .loading-indicator-container.still-loading
+  ~ #main-outlet-wrapper & {
+    &:hover,
+    &:active {
+        
+      // Push animation
+      @if $tap_style == "push" {
+        animation: push 400ms;
+        background: #{$background_color};
+      }
+
+      // Background animation
+      @if $tap_style == "background" {
+        transition: background 200ms;
+        background: #{$background_color};
+      }
+
+    }
+  }
+
+  // Desktop View
+
+  .desktop-view & {
+    .views {
+      position: relative;
+      z-index: 1;
+      .number {
+        position: relative;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+// Topic List Tap Animation
+
+// Push
+
+@keyframes push {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
