@@ -2,9 +2,17 @@ background_color:
   type: string
   default: "rgba(var(--primary-rgb), 0.035)"
   description: "Add a background color hovering effect for topic list item on no-touch devices and tapping effect on touch devices."
-tap_style:
+no_touch_click_style:
+  default: background
+  type: enum
+  choices:
+    - push
+    - slider
+  description: "Select the click animation on topic list item no-touch devices."
+touch_click_style:
   default: push
   type: enum
   choices:
     - background
-  description: "Select the tap animation on topic list item touch devices."
+    - slider
+  description: "Select the click animation on topic list item touch devices."

@@ -13,21 +13,32 @@ export default {
           const topic = this.topic;
           const target = e.target;
           const classList = target.classList;
+          const topicListItemClicked = document.body.classList.add("topic-list-item-clicked");
           
           if (classList.contains("topic-list-data") || 
               classList.contains("link-bottom-line") || 
               classList.contains("topic-list-item")) 
-          {
+          {            
             if (wantsNewWindow(e)) {
               return true;
             }
-            return this.navigateToTopic(topic, topic.lastUnreadUrl);
+            
+            return topicListItemClicked, this.navigateToTopic(topic, topic.lastUnreadUrl);
           }
           this._super(...arguments);
+        }
+        
+      });
+
+      api.onPageChange((url, title) => {
+        const topicListItemClickedExist = document.body.classList.contains("topic-list-item-clicked");
+        const removeTopicListItemClicked = document.body.classList.remove("topic-list-item-clicked");
+
+        if (topicListItemClickedExist) {
+          return removeTopicListItemClicked;
         }
         
       });
     });
   }
 };
-          
