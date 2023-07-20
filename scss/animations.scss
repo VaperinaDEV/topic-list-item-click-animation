@@ -1,0 +1,62 @@
+// Background
+@mixin background {
+  transition: background 200ms;
+  background: #{$background_color};
+}
+
+// Push
+@mixin push {
+  animation: push 400ms;
+  background: #{$background_color};
+}
+
+// Push keyframes
+@keyframes push {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Slider
+@mixin slider {
+  .topic-list-item-clicked {
+    .loading-indicator-container {
+      &.loading,
+      &.still-loading {
+        opacity: 0 !important;
+      }
+    }
+    // Adding slider loader to topic list item
+    .topic-list-item {
+      &:hover,
+      &:active {
+        + .slider-loader {
+          position: relative;
+          .loading-indicator-container {
+            position: absolute;
+            margin-top: -3px;
+            height: 3px;
+            opacity: 1;
+            transition: opacity 0s;
+            background-color: transparent;
+            .loading-indicator {
+              width: 100%;
+              height: 100%;
+              transform: scaleX(0);
+              transform-origin: left;
+              background-color: var(--tertiary);
+              transition: transform 400ms ease-in;
+              transform: scaleX(1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
