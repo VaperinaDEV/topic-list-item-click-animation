@@ -1,19 +1,9 @@
+@import "animations";
+
 .topic-list-item {
   @include user-select(none);
-
-  // Discourse No Touch
   
-  .discourse-no-touch & {
-    &:hover,
-    &:active {
-      cursor: pointer;
-      transition: background 200ms;
-      background: #{$background_color};
-    }
-  }
-
   // Discourse Touch
-  
   .discourse-touch & {
     > * {
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -25,32 +15,58 @@
     }
   }
   
-  .discourse-touch 
-  .loading-indicator-container.loading
-  ~ #main-outlet-wrapper &,
-  .discourse-touch 
-  .loading-indicator-container.still-loading
-  ~ #main-outlet-wrapper & {
+  // Discourse No Touch
+  .discourse-no-touch & {
     &:hover,
     &:active {
-        
-      // Push animation
-      @if $tap_style == "push" {
-        animation: push 400ms;
-        background: #{$background_color};
+      cursor: pointer;
+    }
+  }
+  
+  // Background animation
+  @if ($no_touch_click_style == "background" or $no_touch_click_style == "push") {
+    .discourse-no-touch & {
+      &:hover,
+      &:active {
+        @include background;
       }
-
-      // Background animation
-      @if $tap_style == "background" {
-        transition: background 200ms;
-        background: #{$background_color};
-      }
-
     }
   }
 
-  // Desktop View
+  .topic-list-item-clicked & {
+    &:hover,
+    &:active {
+      @if $no_touch_click_style == "background" {
+        .discourse-no-touch & {
+          @include background;
+        }
+      }
+      @if $touch_click_style == "background" {
+        .discourse-touch & {
+          @include background;
+        }
+      }
+    }
+  }
 
+  // Push animation
+  .topic-list-item-clicked & {
+    &:hover,
+    &:active {
+      @if $no_touch_click_style == "push" {
+        .discourse-no-touch & {
+          @include push;
+        }
+      }
+      @if $touch_click_style == "push" {
+        .discourse-touch & {
+          @include push;
+        }
+      }      
+    }
+  }
+
+  // On Desktop View make clickable Views
   .desktop-view & {
     .views {
       position: relative;
@@ -63,18 +79,26 @@
   }
 }
 
-// Topic List Tap Animation
+// Slider animation
+@if $no_touch_click_style == "slider" {
+  // Hide the top  main slider if a topic list item clicked
+  .discourse-no-touch {
+    @include slider;
+  }
+}
 
-// Push
+@if $touch_click_style == "slider" {
+  // Hide the top  main slider if a topic list item clicked
+  .discourse-touch {
+    @include slider;
+  }
+}
 
-@keyframes push {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
+tr.slider-loader {
+  border-bottom: none;
+}
+
+// Hide topic list item focused
+.topic-list .main-link.focused {
+  box-shadow: none;
 }
