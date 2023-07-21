@@ -95,14 +95,12 @@
 
 // Slider animation
 @if $no_touch_click_style == "slider" {
-  // Hide the top  main slider if a topic list item clicked
   .discourse-no-touch {
     @include slider;
   }
 }
 
 @if $touch_click_style == "slider" {
-  // Hide the top  main slider if a topic list item clicked
   .discourse-touch {
     @include slider;
   }
