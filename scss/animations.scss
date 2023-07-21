@@ -37,6 +37,7 @@
 // Slider
 @mixin slider {
   .topic-list-item-clicked {
+    // Hide the top  main slider if a topic list item clicked
     .loading-indicator-container {
       &.loading,
       &.still-loading {
@@ -60,6 +61,7 @@
           transform-origin: left;
           background-color: var(--tertiary);
           animation: slider 400ms ease-in;
+          z-index: 2; // Topic List Thumbnails theme component compatibility
         }
       }
     }
