@@ -37,7 +37,6 @@
 // Slider
 @mixin slider {
   .topic-list-item-clicked {
-    // Hide the top  main slider if a topic list item clicked
     .loading-indicator-container {
       &.loading,
       &.still-loading {
@@ -48,27 +47,31 @@
     .topic-list-item {
       &:hover,
       &:active {
-        + .slider-loader {
-          position: relative;
-          .loading-indicator-container {
-            position: absolute;
-            margin-top: -3px;
-            height: 3px;
-            opacity: 1;
-            transition: opacity 0s;
-            background-color: transparent;
-            .loading-indicator {
-              width: 100%;
-              height: 100%;
-              transform: scaleX(0);
-              transform-origin: left;
-              background-color: var(--tertiary);
-              transition: transform 400ms ease-in;
-              transform: scaleX(1);
-            }
-          }
+        position: relative;
+        &:after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;          
+          width: 100%;
+          height: 3px;
+          opacity: 1;
+          transition: opacity 0s;
+          transform-origin: left;
+          background-color: var(--tertiary);
+          animation: slider 400ms ease-in;
         }
       }
     }
+  }
+}
+
+// Slider keyframes
+@keyframes slider {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
   }
 }
