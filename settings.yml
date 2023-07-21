@@ -8,6 +8,7 @@ no_touch_click_style:
   choices:
     - push
     - slider
+    - blur
   description: "Select the click animation on topic list item no-touch devices."
 touch_click_style:
   default: push
@@ -15,4 +16,5 @@ touch_click_style:
   choices:
     - background
     - slider
+    - blur
   description: "Select the click animation on topic list item touch devices."
