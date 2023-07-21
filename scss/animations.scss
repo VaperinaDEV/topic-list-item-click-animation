@@ -37,31 +37,32 @@
 // Slider
 @mixin slider {
   .topic-list-item-clicked {
-    // Hide the top  main slider if a topic list item clicked
     .loading-indicator-container {
       &.loading,
       &.still-loading {
-        opacity: 0 !important;
-      }
-    }
-    // Adding slider loader to topic list item
-    .topic-list-item {
-      &:hover,
-      &:active {
-        position: relative;
-        &:after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;          
-          width: 100%;
-          height: 3px;
-          opacity: 1;
-          transition: opacity 0s;
-          transform-origin: left;
-          background-color: var(--tertiary);
-          animation: slider 400ms ease-in;
-          z-index: 2; // Topic List Thumbnails theme component compatibility
+        opacity: 0 !important;  
+        ~ #main-outlet-wrapper {
+          // Adding slider loader to topic list item
+          .topic-list-item {
+            &:hover,
+            &:active {
+              position: relative;
+              &:after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;          
+                width: 100%;
+                height: 3px;
+                opacity: 1;
+                transition: opacity 0s;
+                transform-origin: left;
+                background-color: var(--tertiary);
+                animation: slider 400ms ease-in;
+                z-index: 2; // Topic List Thumbnails theme component needs
+              }
+            }
+          }
         }
       }
     }
