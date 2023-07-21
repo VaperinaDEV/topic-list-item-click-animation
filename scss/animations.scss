@@ -23,6 +23,17 @@
   }
 }
 
+// Blur
+@mixin blur {
+  transition: filter 200ms;
+  filter: blur(5px);
+  border-color: transparent;
+  &:hover,
+  &:active {
+    filter: none;
+  }
+}
+
 // Slider
 @mixin slider {
   .topic-list-item-clicked {
