@@ -37,6 +37,7 @@
 // Slider
 @mixin slider {
   .topic-list-item-clicked {
+    // Hide the top  main slider if a topic list item clicked
     .loading-indicator-container {
       &.loading,
       &.still-loading {
