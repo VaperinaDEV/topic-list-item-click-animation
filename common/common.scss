@@ -66,6 +66,20 @@
     }
   }
 
+  // Blur animation
+  .topic-list-item-clicked & {
+    @if $no_touch_click_style == "blur" {
+      .discourse-no-touch & {
+        @include blur;
+      }
+    }
+    @if $touch_click_style == "blur" {
+      .discourse-touch & {
+        @include blur;
+      }
+    }    
+  }  
+
   // On Desktop View make clickable Views
   .desktop-view & {
     .views {
