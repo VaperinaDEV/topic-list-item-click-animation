@@ -33,9 +33,13 @@
     }
   }
 
-  .topic-list-item-clicked & {
+  .topic-list-item-clicked 
+  .loading-indicator-container.loading ~ #main-outlet-wrapper &,
+  .topic-list-item-clicked 
+  .loading-indicator-container.still-loading ~ #main-outlet-wrapper & {
     &:hover,
-    &:active {
+    &:active {      
+      // Background animation
       @if $no_touch_click_style == "background" {
         .discourse-no-touch & {
           @include background;
@@ -46,13 +50,8 @@
           @include background;
         }
       }
-    }
-  }
 
-  // Push animation
-  .topic-list-item-clicked & {
-    &:hover,
-    &:active {
+      // Push animation
       @if $no_touch_click_style == "push" {
         .discourse-no-touch & {
           @include push;
@@ -64,10 +63,8 @@
         }
       }      
     }
-  }
-
-  // Blur animation
-  .topic-list-item-clicked & {
+    
+    // Blur animation
     @if $no_touch_click_style == "blur" {
       .discourse-no-touch & {
         @include blur;
@@ -77,8 +74,8 @@
       .discourse-touch & {
         @include blur;
       }
-    }    
-  }  
+    }
+  }
 
   // On Desktop View make clickable Views
   .desktop-view & {
@@ -99,7 +96,6 @@
     @include slider;
   }
 }
-
 @if $touch_click_style == "slider" {
   .discourse-touch {
     @include slider;
