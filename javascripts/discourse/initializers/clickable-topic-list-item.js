@@ -14,6 +14,9 @@ export default {
           const target = e.target;
           const classList = target.classList;
           const topicListItemClicked = document.body.classList.add("topic-list-item-clicked");
+          const result = this.showEntrance(e);
+          
+          if (result === false) return result;
           
           if (classList.contains("topic-list-data") || 
               classList.contains("link-bottom-line") || 
@@ -28,6 +31,15 @@ export default {
           this._super(...arguments);
         }
         
+      });
+
+      api.onAppEvent("user-card:show", () => {
+        const topicListItemClickedExist = document.body.classList.contains("topic-list-item-clicked");
+        const removeTopicListItemClicked = document.body.classList.remove("topic-list-item-clicked");
+
+        if (topicListItemClickedExist) {
+          return removeTopicListItemClicked;
+        }
       });
 
       api.onPageChange((url, title) => {
