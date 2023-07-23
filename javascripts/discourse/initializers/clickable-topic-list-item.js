@@ -33,15 +33,6 @@ export default {
         
       });
 
-      api.onAppEvent("user-card:show", () => {
-        const topicListItemClickedExist = document.body.classList.contains("topic-list-item-clicked");
-        const removeTopicListItemClicked = document.body.classList.remove("topic-list-item-clicked");
-
-        if (topicListItemClickedExist) {
-          return removeTopicListItemClicked;
-        }
-      });
-
       api.onPageChange((url, title) => {
         const topicListItemClickedExist = document.body.classList.contains("topic-list-item-clicked");
         const removeTopicListItemClicked = document.body.classList.remove("topic-list-item-clicked");
