@@ -1,17 +1,23 @@
 @import "animations";
 
 .topic-list-item {
-  
-  @if ($no_touch_click_style != "none" or $touch_click_style != "none") {
+
+  // User Select None
+  @if $no_touch_click_style != "none" {
+    @include user-select(none);
+  }
+  @if $touch_click_style != "none" {
     @include user-select(none);
   } 
-  
-  @if ($touch_click_style != "none") {
+
+  // Hide tap highlight color
+  @if $touch_click_style != "none" {
     // Discourse Touch
     .discourse-touch & {
       > * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       }
+      // Add avatar brightness when tap it
       img.avatar {
         &:active {
           filter: brightness(0.7);
@@ -19,21 +25,31 @@
       }
     }
   }
-
-  @if ($no_touch_click_style != "none") {
-    // Discourse No Touch
-    .discourse-no-touch & {
+  
+  // Change cursor to pointer
+  @if $no_touch_click_style != "none" {
+    // Discourse No Touch - Desktop View
+    .discourse-no-touch.desktop-view & {
       &:hover,
       &:active {
         cursor: pointer;
       }
     }
   }
+  @if $touch_click_style != "none" {
+    // Discourse Touch - Desktop View
+    .discourse-touch.desktop-view & {
+      &:hover,
+      &:active {
+        cursor: pointer;
+      }
+    }
+  }  
   
-  // Background animation
-  @if ($no_touch_click_style == "background" or 
-       $no_touch_click_style == "push" and 
-       $no_touch_click_style != "none") 
+  // Background animation on hover, active
+  // Discourse No Touch - Desktop View
+  @if $no_touch_click_style == "background" or 
+      $no_touch_click_style == "push" 
   {
     .discourse-no-touch & {
       &:hover,
@@ -42,53 +58,67 @@
       }
     }
   }
-
+  // Discourse Touch - Desktop View
+  @if $touch_click_style == "background" or 
+      $touch_click_style == "push" 
+  {
+    .discourse-touch.desktop-view & {
+      &:hover,
+      &:active {
+        @include background;
+      }
+    }
+  }
+  
+  // Animations when clicked or tapped and hover, active
   .tli-clicked 
   .loading-indicator-container.loading ~ #main-outlet-wrapper &,
   .tli-clicked 
   .loading-indicator-container.still-loading ~ #main-outlet-wrapper & {
     &:hover,
-    &:active { 
+    &:active {      
       // Background animation
-      @if ($no_touch_click_style == "background" and $no_touch_click_style != "none") {
+      @if $no_touch_click_style == "background" {
         .discourse-no-touch & {
           @include background;
         }
       }
-      @if ($touch_click_style == "background" and $touch_click_style != "none") {
+      @if $touch_click_style == "background" {
         .discourse-touch & {
           @include background;
         }
       }
 
       // Push animation
-      @if ($no_touch_click_style == "push" and $no_touch_click_style != "none") {
+      @if $no_touch_click_style == "push" {
         .discourse-no-touch & {
           @include push;
         }
       }
-      @if ($touch_click_style == "push" and $touch_click_style != "none") {
+      @if $touch_click_style == "push" {
         .discourse-touch & {
           @include push;
         }
-      }     
+      }      
     }
     
     // Blur animation
-    @if ($no_touch_click_style == "blur" and $no_touch_click_style != "none") {
+    @if $no_touch_click_style == "blur" {
       .discourse-no-touch & {
         @include blur;
       }
     }
-    @if ($touch_click_style == "blur" and $touch_click_style != "none") {
+    @if $touch_click_style == "blur" {
       .discourse-touch & {
         @include blur;
       }
     }
   }
-  @if ($no_touch_click_style != "none" or $touch_click_style != "none") {
-    // On Desktop View make clickable Views
-    .desktop-view & {
+  
+  // On Desktop View make clickable Views
+  @if $no_touch_click_style != "none" {
+    // Discourse No Touch - Desktop View
+    .discourse-no-touch.desktop-view & {
       .views {
         position: relative;
         z-index: 1;
@@ -99,22 +129,40 @@
       }
     }
   }
+  @if $touch_click_style != "none" {
+    // Discourse Touch - Desktop View
+    .discourse-touch.desktop-view & {
+      .views {
+        position: relative;
+        z-index: 1;
+        .number {
+          position: relative;
+          z-index: -1;
+        }
+      }
+    }
+  }  
 }
 
 // Slider animation
-@if ($no_touch_click_style == "slider" and $no_touch_click_style != "none") {
+@if $no_touch_click_style == "slider" {
   .discourse-no-touch {
     @include slider;
   }
 }
-@if ($touch_click_style == "slider" and $touch_click_style != "none") {
+@if $touch_click_style == "slider" {
   .discourse-touch {
     @include slider;
   }
 }
 
-@if ($no_touch_click_style != "none" or $touch_click_style != "none") {
-  // Hide topic list item focused
+// Hide topic list item focused
+@if $no_touch_click_style != "none" {
+  .topic-list .main-link.focused {
+    box-shadow: none;
+  }
+}
+@if $touch_click_style != "none" {
   .topic-list .main-link.focused {
     box-shadow: none;
   }
