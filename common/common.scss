@@ -29,7 +29,7 @@
   // Change cursor to pointer
   @if $no_touch_click_style != "none" {
     // Discourse No Touch - Desktop View
-    .discourse-no-touch.desktop-view & {
+    .discourse-no-touch & {
       &:hover,
       &:active {
         cursor: pointer;
