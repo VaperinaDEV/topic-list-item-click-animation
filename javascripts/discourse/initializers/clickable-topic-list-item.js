@@ -8,7 +8,8 @@ export default {
     
     const capabilities = owner.lookup("service:capabilities");
     if ((settings.no_touch_click_style == "none" && !capabilities.touch) ||
-        (settings.touch_click_style == "none" && capabilities.touch)) {
+        (settings.touch_click_style == "none" && capabilities.touch)) 
+    {
       return;
     }
     
