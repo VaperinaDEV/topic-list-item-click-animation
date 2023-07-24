@@ -1,30 +1,40 @@
 @import "animations";
 
 .topic-list-item {
-  @include user-select(none);
   
-  // Discourse Touch
-  .discourse-touch & {
-    > * {
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  @if ($no_touch_click_style != "none" or $touch_click_style != "none") {
+    @include user-select(none);
+  } 
+  
+  @if ($touch_click_style != "none") {
+    // Discourse Touch
+    .discourse-touch & {
+      > * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      img.avatar {
+        &:active {
+          filter: brightness(0.7);
+        }
+      }
     }
-    img.avatar {
+  }
+
+  @if ($no_touch_click_style != "none") {
+    // Discourse No Touch
+    .discourse-no-touch & {
+      &:hover,
       &:active {
-        filter: brightness(0.7);
+        cursor: pointer;
       }
     }
   }
   
-  // Discourse No Touch
-  .discourse-no-touch & {
-    &:hover,
-    &:active {
-      cursor: pointer;
-    }
-  }
-  
   // Background animation
-  @if ($no_touch_click_style == "background" or $no_touch_click_style == "push") {
+  @if ($no_touch_click_style == "background" or 
+       $no_touch_click_style == "push" and 
+       $no_touch_click_style != "none") 
+  {
     .discourse-no-touch & {
       &:hover,
       &:active {
@@ -33,76 +43,79 @@
     }
   }
 
-  .topic-list-item-clicked 
+  .tli-clicked 
   .loading-indicator-container.loading ~ #main-outlet-wrapper &,
-  .topic-list-item-clicked 
+  .tli-clicked 
   .loading-indicator-container.still-loading ~ #main-outlet-wrapper & {
     &:hover,
-    &:active {      
+    &:active { 
       // Background animation
-      @if $no_touch_click_style == "background" {
+      @if ($no_touch_click_style == "background" and $no_touch_click_style != "none") {
         .discourse-no-touch & {
           @include background;
         }
       }
-      @if $touch_click_style == "background" {
+      @if ($touch_click_style == "background" and $touch_click_style != "none") {
         .discourse-touch & {
           @include background;
         }
       }
 
       // Push animation
-      @if $no_touch_click_style == "push" {
+      @if ($no_touch_click_style == "push" and $no_touch_click_style != "none") {
         .discourse-no-touch & {
           @include push;
         }
       }
-      @if $touch_click_style == "push" {
+      @if ($touch_click_style == "push" and $touch_click_style != "none") {
         .discourse-touch & {
           @include push;
         }
-      }      
+      }     
     }
     
     // Blur animation
-    @if $no_touch_click_style == "blur" {
+    @if ($no_touch_click_style == "blur" and $no_touch_click_style != "none") {
       .discourse-no-touch & {
         @include blur;
       }
     }
-    @if $touch_click_style == "blur" {
+    @if ($touch_click_style == "blur" and $touch_click_style != "none") {
       .discourse-touch & {
         @include blur;
       }
     }
   }
-
-  // On Desktop View make clickable Views
-  .desktop-view & {
-    .views {
-      position: relative;
-      z-index: 1;
-      .number {
+  @if ($no_touch_click_style != "none" or $touch_click_style != "none") {
+    // On Desktop View make clickable Views
+    .desktop-view & {
+      .views {
         position: relative;
-        z-index: -1;
+        z-index: 1;
+        .number {
+          position: relative;
+          z-index: -1;
+        }
       }
     }
   }
 }
 
 // Slider animation
-@if $no_touch_click_style == "slider" {
+@if ($no_touch_click_style == "slider" and $no_touch_click_style != "none") {
   .discourse-no-touch {
     @include slider;
   }
 }
-@if $touch_click_style == "slider" {
+@if ($touch_click_style == "slider" and $touch_click_style != "none") {
   .discourse-touch {
     @include slider;
   }
 }
 
-// Hide topic list item focused
-.topic-list .main-link.focused {
-  box-shadow: none;
+@if ($no_touch_click_style != "none" or $touch_click_style != "none") {
+  // Hide topic list item focused
+  .topic-list .main-link.focused {
+    box-shadow: none;
+  }
 }
