@@ -20,7 +20,7 @@ export default {
           const topic = this.topic;
           const target = e.target;
           const classList = target.classList;
-          const topicListItemClicked = document.body.classList.add("tli-clicked");
+          const tliClicked = document.body.classList.add("tli-clicked");
           const result = this.showEntrance(e);
           
           if (result === false) return result;
@@ -33,7 +33,7 @@ export default {
               return true;
             }
             
-            return topicListItemClicked, this.navigateToTopic(topic, topic.lastUnreadUrl);
+            return tliClicked, this.navigateToTopic(topic, topic.lastUnreadUrl);
           }
 
           this._super(...arguments);
@@ -42,20 +42,21 @@ export default {
       });
       
       api.onAppEvent("card:hide", () => {
-        const topicListItemClickedExist = document.body.classList.contains("tli-clicked");
-        const removeTopicListItemClicked = document.body.classList.remove("tli-clicked");
+        const tliClickedExist = document.body.classList.contains("tli-clicked");
+        const removeTliClicked = document.body.classList.remove("tli-clicked");
 
-        if (topicListItemClickedExist) {
-          return removeTopicListItemClicked;
+        if (tliClickedExist) {
+          return removeTliClicked;
         }
+        
       });      
 
       api.onPageChange((url, title) => {
         const topicListItemClickedExist = document.body.classList.contains("tli-clicked");
         const removeTopicListItemClicked = document.body.classList.remove("tli-clicked");
 
-        if (topicListItemClickedExist) {
-          return removeTopicListItemClicked;
+        if (tliClickedExist) {
+          return removeTliClicked;
         }
         
       });
