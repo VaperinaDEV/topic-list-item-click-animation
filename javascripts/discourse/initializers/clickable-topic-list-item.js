@@ -52,8 +52,8 @@ export default {
       });      
 
       api.onPageChange((url, title) => {
-        const topicListItemClickedExist = document.body.classList.contains("tli-clicked");
-        const removeTopicListItemClicked = document.body.classList.remove("tli-clicked");
+        const tliClickedExist = document.body.classList.contains("tli-clicked");
+        const removeTliClicked = document.body.classList.remove("tli-clicked");
 
         if (tliClickedExist) {
           return removeTliClicked;
