@@ -10,10 +10,14 @@ import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
 export default class ClickableTopic extends Component {
   @service capabilities;
 
-  if ((settings.no_touch_click_style == "none" && !this.capabilities.touch) ||
-    (settings.touch_click_style == "none" && this.capabilities.touch)) 
-  {
-    return;
+  constructor() {
+    super(...arguments);
+    if (
+      (settings.no_touch_click_style === "none" && !this.capabilities.touch) ||
+      (settings.touch_click_style === "none" && this.capabilities.touch)
+    ) {
+      return;
+    }
   }
 
   @bind
