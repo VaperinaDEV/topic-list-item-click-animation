@@ -43,7 +43,8 @@
         opacity: 0 !important;  
         ~ #main-outlet-wrapper {
           // Adding slider loader to topic list item
-          .topic-list-item {
+          .topic-list-item,
+          .latest-topic-list-item {
             &:hover,
             &:active {
               position: relative;
