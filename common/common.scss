@@ -1,6 +1,7 @@
 @import "animations";
 
-.topic-list-item {
+.topic-list-item,
+.latest-topic-list-item {
 
   // User Select None
   @if $no_touch_click_style != "none" {
