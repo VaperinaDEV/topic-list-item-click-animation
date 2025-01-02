@@ -167,3 +167,21 @@
     box-shadow: none;
   }
 }
+
+// More topics section
+.more-topics__container {
+  .more-topics__list {
+    .topic-list-header {
+      &:after {
+        display: none;
+      }
+    }
+    .topic-list-body {
+      .topic-list-item {
+        &:first-child td {
+          padding-top: 12px;
+        }
+      }
+    }
+  }
+}
