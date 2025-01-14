@@ -10,20 +10,21 @@ import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
 export default class ClickableLatestTopic extends Component {
   @service capabilities;
 
-  constructor() {
-    super(...arguments);
-    if (
+  get shouldNotShow() {
+    return (
       (settings.no_touch_click_style === "none" && !this.capabilities.touch) ||
       (settings.touch_click_style === "none" && this.capabilities.touch)
-    ) {
-      return;
-    }
+    );
   }
 
   @bind
   clickHandler(event) {
     const targetElement = event.target;
     const topic = this.args.outletArgs.topic;
+
+    if (this.shouldNotShow) {
+      return;
+    }
 
     const tliClicked = document.body.classList.add("tli-clicked");
 
@@ -46,10 +47,12 @@ export default class ClickableLatestTopic extends Component {
   }
 
   <template>
-    <div
-      class="hidden"
-      {{didInsert this.registerClickHandler}}
-      {{willDestroy this.removeClickHandler}}
-    ></div>
+    {{#unless this.shouldNotShow}}
+      <div
+        class="hidden"
+        {{didInsert this.registerClickHandler}}
+        {{willDestroy this.removeClickHandler}}
+      ></div>
+    {{/unless}}
   </template>
 }
