@@ -10,20 +10,22 @@ import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
 export default class ClickableTopic extends Component {
   @service capabilities;
 
-  constructor() {
-    super(...arguments);
-    if (
+  get shouldNotShow() {
+    return (
       (settings.no_touch_click_style === "none" && !this.capabilities.touch) ||
-      (settings.touch_click_style === "none" && this.capabilities.touch)
-    ) {
-      return;
-    }
+      (settings.touch_click_style === "none" && this.capabilities.touch) ||
+      (settings.disable_on_pm && this.args.outletArgs.topic.isPrivateMessage)
+    );
   }
 
   @bind
   clickHandler(event) {
     const targetElement = event.target;
     const topic = this.args.outletArgs.topic;
+
+    if (this.shouldNotShow) {
+      return;
+    }
 
     const clickTargets = [
       "topic-list-item",
@@ -52,10 +54,12 @@ export default class ClickableTopic extends Component {
   }
 
   <template>
-    <div
-      class="hidden"
-      {{didInsert this.registerClickHandler}}
-      {{willDestroy this.removeClickHandler}}
-    ></div>
+    {{#unless this.shouldNotShow}}
+      <div
+        class="hidden"
+        {{didInsert this.registerClickHandler}}
+        {{willDestroy this.removeClickHandler}}
+      ></div>
+    {{/unless}}
   </template>
 }
