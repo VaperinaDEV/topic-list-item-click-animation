@@ -20,3 +20,7 @@ touch_click_style:
     - blur
     - none
   description: "Select the click animation on topic list item touch devices."
+disable_on_pm:
+  type: bool
+  default: false
+  description: "Enable this setting if you want to disable the component on PM topic list."
