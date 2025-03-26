@@ -5,10 +5,10 @@
 
   // User Select None
   @if $no_touch_click_style != "none" {
-    @include user-select(none);
+    user-select: none;
   }
   @if $touch_click_style != "none" {
-    @include user-select(none);
+    user-select: none;
   } 
 
   // Hide tap highlight color
