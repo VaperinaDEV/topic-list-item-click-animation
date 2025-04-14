@@ -1,9 +1,9 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
 import { action } from "@ember/object";
-import { navigateToTopic } from "discourse/components/topic-list-item";
 import { wantsNewWindow } from "discourse/lib/intercept-click";
 import { bind } from "discourse-common/utils/decorators";
+import DiscourseURL from "discourse/lib/url";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import willDestroy from "@ember/render-modifiers/modifiers/will-destroy";
 
@@ -32,7 +32,7 @@ export default class ClickableLatestTopic extends Component {
       if (wantsNewWindow(event)) {
         return true;
       }
-      return tliClicked, navigateToTopic.call(this, topic, topic.lastUnreadUrl);
+      return tliClicked, DiscourseURL.routeTo(topic.lastUnreadUrl);
     }
   }
 
